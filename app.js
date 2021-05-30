@@ -7,11 +7,10 @@ const taskInput = document.querySelector('#task');
 
 // Load Events
 loadEventListeners();
-// Initializing Local Storage
-const tasks = initLocalStorage();
-updateTasks(tasks);
 
 function loadEventListeners() {
+    // DOM is Loaded
+    document.addEventListener('DOMContentLoaded', DOMLoaded);
     // Add a Task
     taskForm.addEventListener('submit', addTask);
     // Remove a Task
@@ -54,7 +53,7 @@ function createTaskItem(task) {
     taskList.insertAdjacentHTML('beforeend', taskLiTemplate);
 }
 
-function updateTasks(tasks) {
+function updateTasksInView(tasks) {
     tasks.forEach(function (task) {
         createTaskItem(task);
     })
@@ -110,14 +109,14 @@ function filterTasks(e) {
 
 // Initializing Local Storage
 
-function initLocalStorage() {
+function getTasksFromLocalStorage() {
     let tasks;
     if(localStorage.getItem('tasks') == null) {
         tasks = [];
-        updateLocalStorage(tasks);
     } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'));
+        tasks = JSON.parse(localStorage.getItem('tasks'))
     }
+
     return tasks;
 }
 
@@ -130,16 +129,20 @@ function updateLocalStorage(tasks) {
 // Storing a Task in Local Storage
 
 function storeTaskInLocalStorage(task) {
+    let tasks = getTasksFromLocalStorage();
     tasks.push(task);
     updateLocalStorage(tasks);
 }
 
 function removeTaskInLocalStorage(task) {
     const taskIndex = tasks.indexOf(task.trim());
-    console.log(task.trim());
-    console.log(tasks);
     if (taskIndex != -1) {
         tasks.splice(taskIndex, 1);
         updateLocalStorage(tasks);
     }
 }
+
+function DOMLoaded() {
+    let tasks = getTasksFromLocalStorage();
+    updateTasksInView(tasks);
+};
