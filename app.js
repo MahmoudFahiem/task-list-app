@@ -129,12 +129,13 @@ function updateLocalStorage(tasks) {
 // Storing a Task in Local Storage
 
 function storeTaskInLocalStorage(task) {
-    let tasks = getTasksFromLocalStorage();
+    const tasks = getTasksFromLocalStorage();
     tasks.push(task);
     updateLocalStorage(tasks);
 }
 
 function removeTaskInLocalStorage(task) {
+    const tasks = getTasksFromLocalStorage();
     const taskIndex = tasks.indexOf(task.trim());
     if (taskIndex != -1) {
         tasks.splice(taskIndex, 1);
@@ -143,6 +144,6 @@ function removeTaskInLocalStorage(task) {
 }
 
 function DOMLoaded() {
-    let tasks = getTasksFromLocalStorage();
+    const tasks = getTasksFromLocalStorage();
     updateTasksInView(tasks);
 };
