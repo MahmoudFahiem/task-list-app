@@ -13,3 +13,22 @@ function loadEventListeners() {
     // Add a Task
     taskForm.addEventListener('submit', addTask);
 }
+
+function addTask(e) {
+    if(taskInput.value === ""){
+        alert('Add a Task');
+    } else {
+        // Create A Task Li
+        const taskLiTemplate = `
+            <li class="collection-item">
+                ${taskInput.value}
+                <a href="#" class="delete-item secondary-content">
+                    <i class="fa fa-remove"></i>
+                </a>
+            </li>
+        `;
+
+        taskList.insertAdjacentHTML('beforeend',taskLiTemplate);
+    }
+    e.preventDefault();
+}
